@@ -61,3 +61,21 @@ void novo_cliente(Cliente *clientes, int *num_clientes) {
     clientes[(*num_clientes)++] = novo_cliente;
     salvar_dados(clientes, *num_clientes);
 }
+void apaga_cliente(Cliente *clientes, int *num_clientes) {
+    char cpf[11];
+    int i, j;
+    printf("Digite o CPF do cliente a ser apagado: ");
+    scanf("%s", cpf);
+    for (i = 0; i < *num_clientes; i++) {
+        if (strcmp(clientes[i].cpf, cpf) == 0) {
+            for (j = i; j < *num_clientes - 1; j++) {
+                clientes[j] = clientes[j + 1];
+            }
+            (*num_clientes)--;
+            printf("Cliente apagado com sucesso!\n");
+            salvar_dados(clientes, *num_clientes);
+            return;
+        }
+    }
+    printf("Cliente não encontrado!\n");
+}
