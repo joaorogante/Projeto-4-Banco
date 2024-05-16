@@ -25,3 +25,24 @@ void salvar_dados(Cliente *clientes, int num_clientes) {
     }
     fclose(fp);
 }
+void carregar_dados(Cliente *clientes, int *num_clientes) {
+    FILE *fp = fopen("clientes.txt", "r"); // Altere a extensão do arquivo para .txt
+    if (fp == NULL) {
+        printf("Erro ao abrir o arquivo para leitura!\n");
+        return;
+    }
+    char buffer[100];
+    int i = 0;
+    while (fscanf(fp, "Cliente %d:\n", &i) != EOF) {
+        fscanf(fp, "Nome: %s\n", clientes[i-1].nome);
+        fscanf(fp, "CPF: %s\n", clientes[i-1].cpf);
+        char tipo_conta[10];
+        fscanf(fp, "Tipo de conta: %s\n", tipo_conta);
+        clientes[i-1].tipo_conta = strcmp(tipo_conta, "Comum") == 0 ? 1 : 2;
+        fscanf(fp, "Saldo: %lf\n", &clientes[i-1].saldo);
+        fscanf(fp, "Senha: %s\n", clientes[i-1].senha);
+        fgets(buffer, sizeof(buffer), fp); // Ler a linha "-----------------\n"
+    }
+    *num_clientes = i;
+    fclose(fp);
+}
