@@ -91,4 +91,29 @@ void listar_clientes(Cliente *clientes, int num_clientes) {
     }
     printf("\n");
 }
-    
+void debito(Cliente *clientes, int num_clientes) {
+    char cpf[11], senha[20];
+    double valor, taxa;
+    int i;
+    printf("Digite o CPF do cliente: ");
+    scanf("%s", cpf);
+    printf("Digite a senha do cliente: ");
+    scanf("%s", senha);
+    printf("Digite o valor a ser debitado: ");
+    scanf("%lf", &valor);
+    for (i = 0; i < num_clientes; i++) {
+        if (strcmp(clientes[i].cpf, cpf) == 0 && strcmp(clientes[i].senha, senha) == 0) {
+            taxa = clientes[i].tipo_conta == 1 ? 0.05 : 0.03;
+            if (clientes[i].saldo - valor * (1 + taxa) >= (clientes[i].tipo_conta == 1 ? -1000.0 : -5000.0)) {
+                clientes[i].saldo -= valor * (1 + taxa);
+                debito_global += valor* (1 + taxa);
+                printf("Débito realizado com sucesso!\n");
+                return;
+            } else {
+                printf("Saldo insuficiente!\n");
+            }
+            return;
+        }
+    }
+    printf("Cliente não encontrado ou senha incorreta!\n");
+}    
