@@ -117,3 +117,22 @@ void debito(Cliente *clientes, int num_clientes) {
     }
     printf("Cliente não encontrado ou senha incorreta!\n");
 }    
+void deposito(Cliente *clientes, int num_clientes) {
+    char cpf[11];
+    double valor;
+    int i;
+    printf("Digite o CPF do cliente: ");
+    scanf("%s", cpf);
+    printf("Digite o valor a ser depositado: ");
+    scanf("%lf", &valor);
+    for (i = 0; i < num_clientes; i++) {
+        if (strcmp(clientes[i].cpf, cpf) == 0) {
+            clientes[i].saldo += valor;
+            deposito_global += valor;
+            printf("Depósito realizado com sucesso!\n");
+         
+            return;
+        }
+    }
+    printf("Cliente não encontrado!\n");
+}
