@@ -1,7 +1,7 @@
-Projeto Banco Virtual
+# Projeto Banco Virtual
 Este projeto consiste em um software de um Banco Virtual, onde é possível cadastrar clientes, realizar operações bancárias como débito, depósito, transferência, e gerar extratos.
 
-Como Compilar e Executar
+# Como Compilar e Executar
 Para executar e compilar o código C fornecido, você precisará de um ambiente de desenvolvimento compatível com a linguagem C, como o GCC (GNU Compiler Collection). Certifique-se de ter o GCC instalado em seu sistema.
 
 Aqui estão os passos para compilar e executar o código C do projeto do Banco Virtual:
