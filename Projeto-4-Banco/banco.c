@@ -8,7 +8,7 @@ double transferencia_global = 0.0;
 double debito_global = 0.0;
 
 void salvar_dados(Cliente *clientes, int num_clientes) {
-    FILE *fp = fopen("clientes.txt", "w"); // Altere a extensão do arquivo para .txt
+    FILE *fp = fopen("clientes.bin", "w"); // Altere a extensão do arquivo para .txt
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo para escrita!\n");
         return;
