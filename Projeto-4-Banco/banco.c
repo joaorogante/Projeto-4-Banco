@@ -26,7 +26,7 @@ void salvar_dados(Cliente *clientes, int num_clientes) {
     fclose(fp);
 }
 void carregar_dados(Cliente *clientes, int *num_clientes) {
-    FILE *fp = fopen("clientes.txt", "r"); // Altere a extensão do arquivo para .txt
+    FILE *fp = fopen("clientes.bin", "r"); 
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo para leitura!\n");
         return;
