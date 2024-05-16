@@ -136,3 +136,51 @@ void deposito(Cliente *clientes, int num_clientes) {
     }
     printf("Cliente não encontrado!\n");
 }
+void extrato(Cliente *clientes, int num_clientes) {
+    char cpf[11], senha[20];
+    int i;
+    double debito_local = 0.0; 
+
+    printf("Digite o CPF do cliente: ");
+    scanf("%s", cpf);
+    printf("Digite a senha do cliente: ");
+    scanf("%s", senha);
+
+    for (i = 0; i < num_clientes; i++) {
+        if (strcmp(clientes[i].cpf, cpf) == 0 && strcmp(clientes[i].senha, senha) == 0) {
+            printf("Saldo: %.2lf\n", clientes[i].saldo);
+
+            FILE *fp = fopen("extrato.txt", "a");
+            if (fp == NULL) {
+                printf("Erro ao abrir o arquivo de extrato!\n");
+                return;
+            }
+
+            fprintf(fp, "Cliente: %s\n", clientes[i].nome);
+            fprintf(fp, "CPF: %s\n", clientes[i].cpf);
+            fprintf(fp, "Saldo: %.2lf\n", clientes[i].saldo);
+            fprintf(fp, "Operações:\n");
+
+            if (debito_global > 0.0) {
+                double taxa = clientes[i].tipo_conta == 1 ? 0.05 : 0.03;
+                fprintf(fp, "Débito: %.2lf (Taxa: %.2lf)\n", debito_global, debito_global * taxa);
+                debito_global = 0.0; 
+            }
+            if (deposito_global > 0.0) {
+                fprintf(fp, "Depósito: %.2lf\n", deposito_global);
+                deposito_global = 0.0; 
+            }
+            if (transferencia_global > 0.0) {
+                fprintf(fp, "Transferência: %.2lf\n", transferencia_global);
+                transferencia_global = 0.0; 
+            }
+
+            fprintf(fp, "-----------------\n");
+            fclose(fp);
+
+            return;
+        }
+    }
+
+    printf("Cliente não encontrado ou senha incorreta!\n");
+}
