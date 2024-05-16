@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "banco.h"
+#include <time.h>
 
 double deposito_global = 0.0;
 double transferencia_global = 0.0;
