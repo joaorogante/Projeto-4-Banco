@@ -79,3 +79,16 @@ void apaga_cliente(Cliente *clientes, int *num_clientes) {
     }
     printf("Cliente não encontrado!\n");
 }
+void listar_clientes(Cliente *clientes, int num_clientes) {
+    printf("\n==== Lista de Clientes ====\n");
+    for (int i = 0; i < num_clientes; i++) {
+        printf("\nCliente %d:\n", i + 1);
+        printf("Nome: %s\n", clientes[i].nome);
+        printf("CPF: %s\n", clientes[i].cpf);
+        printf("Tipo de Conta: %s\n", clientes[i].tipo_conta == 1 ? "Comum" : "Plus");
+        printf("Saldo: R$ %.2lf\n", clientes[i].saldo);
+        printf("---------------------------\n");
+    }
+    printf("\n");
+}
+    
