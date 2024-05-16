@@ -152,8 +152,7 @@ void deposito(Cliente *clientes, int num_clientes) {
 }
 void extrato(Cliente *clientes, int num_clientes) {
     char cpf[11], senha[20];
-    int i;
-    double debito_local = 0.0; 
+    int i, j;
 
     printf("Digite o CPF do cliente: ");
     scanf("%s", cpf);
@@ -175,18 +174,13 @@ void extrato(Cliente *clientes, int num_clientes) {
             fprintf(fp, "Saldo: %.2lf\n", clientes[i].saldo);
             fprintf(fp, "Operações:\n");
 
-            if (debito_global > 0.0) {
-                double taxa = clientes[i].tipo_conta == 1 ? 0.05 : 0.03;
-                fprintf(fp, "Débito: %.2lf (Taxa: %.2lf)\n", debito_global, debito_global * taxa);
-                debito_global = 0.0; 
-            }
-            if (deposito_global > 0.0) {
-                fprintf(fp, "Depósito: %.2lf\n", deposito_global);
-                deposito_global = 0.0; 
-            }
-            if (transferencia_global > 0.0) {
-                fprintf(fp, "Transferência: %.2lf\n", transferencia_global);
-                transferencia_global = 0.0; 
+            // Exibir as últimas 100 operações
+            int indice_inicial = (clientes[i].indice_operacao + 1) % 100;
+            for (j = 0; j < 100; j++) {
+                int indice = (indice_inicial + j) % 100;
+                if (strlen(clientes[i].operacoes[indice].tipo_operacao) > 0) {
+                    fprintf(fp, "%s: %.2lf (%s)\n", clientes[i].operacoes[indice].tipo_operacao, clientes[i].operacoes[indice].valor, clientes[i].operacoes[indice].data);
+                }
             }
 
             fprintf(fp, "-----------------\n");
