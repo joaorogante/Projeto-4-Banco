@@ -46,3 +46,18 @@ void carregar_dados(Cliente *clientes, int *num_clientes) {
     *num_clientes = i;
     fclose(fp);
 }
+void novo_cliente(Cliente *clientes, int *num_clientes) {
+    Cliente novo_cliente;
+    printf("Digite o nome do cliente: ");
+    scanf("%s", novo_cliente.nome);
+    printf("Digite o CPF do cliente: ");
+    scanf("%s", novo_cliente.cpf);
+    printf("Digite o tipo de conta (1 para comum, 2 para plus): ");
+    scanf("%d", &novo_cliente.tipo_conta);
+    printf("Digite o saldo inicial da conta: ");
+    scanf("%lf", &novo_cliente.saldo);
+    printf("Digite a senha do cliente: ");
+    scanf("%s", novo_cliente.senha);
+    clientes[(*num_clientes)++] = novo_cliente;
+    salvar_dados(clientes, *num_clientes);
+}
