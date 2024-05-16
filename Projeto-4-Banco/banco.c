@@ -136,6 +136,13 @@ void deposito(Cliente *clientes, int num_clientes) {
         if (strcmp(clientes[i].cpf, cpf) == 0) {
             clientes[i].saldo += valor;
             deposito_global += valor;
+            strcpy(clientes[i].operacoes[clientes[i].indice_operacao].tipo_operacao, "Depósito");
+            clientes[i].operacoes[clientes[i].indice_operacao].valor = valor;
+            time_t t = time(NULL);
+            struct tm *tm = localtime(&t);
+            sprintf(clientes[i].operacoes[clientes[i].indice_operacao].data, "%02d/%02d/%04d", tm->tm_mday, tm->tm_mon + 1, tm->tm_year + 1900);
+            clientes[i].indice_operacao = (clientes[i].indice_operacao + 1) % 100;
+
             printf("Depósito realizado com sucesso!\n");
          
             return;
