@@ -225,6 +225,19 @@ void transferencia(Cliente *clientes, int num_clientes) {
                 if (strcmp(clientes[j].cpf, cpf_destino) == 0) {
                     clientes[i].saldo -= valor;
                     clientes[j].saldo += valor;
+                    strcpy(clientes[i].operacoes[clientes[i].indice_operacao].tipo_operacao, "Transferência");
+                    clientes[i].operacoes[clientes[i].indice_operacao].valor = -valor;
+                    time_t t = time(NULL);
+                    struct tm *tm = localtime(&t);
+                    sprintf(clientes[i].operacoes[clientes[i].indice_operacao].data, "%02d/%02d/%04d", tm->tm_mday, tm->tm_mon + 1, tm->tm_year + 1900);
+                    clientes[i].indice_operacao = (clientes[i].indice_operacao + 1) % 100;
+
+                    // Registrar a operação de transferência na conta de destino
+                    strcpy(clientes[j].operacoes[clientes[j].indice_operacao].tipo_operacao, "Transferência");
+                    clientes[j].operacoes[clientes[j].indice_operacao].valor = valor;
+                    sprintf(clientes[j].operacoes[clientes[j].indice_operacao].data, "%02d/%02d/%04d", tm->tm_mday, tm->tm_mon + 1, tm->tm_year + 1900);
+                    clientes[j].indice_operacao = (clientes[j].indice_operacao + 1) % 100;
+
                     printf("Transferência realizada com sucesso!\n");
                     transferencia_global = valor; 
                     return;
